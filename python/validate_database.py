@@ -176,7 +176,7 @@ for column in required_variables:
         f"({percentage:6.2f}%)"
     )
 
-# ------------------------------------------------------------
+
 # Geographic range sanity check
 print("GEOGRAPHIC VALIDATION")
 
@@ -290,8 +290,6 @@ else:
 
 connection.close()
 
-print("\n" + "=" * 70)
 print("DATABASE VALIDATION COMPLETE")
-print("=" * 70)
 
 print("\nDatabase validation finished successfully!")
