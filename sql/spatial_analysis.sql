@@ -1,8 +1,6 @@
 -- Query 1: average chlorophyll by rounded latitude
 SELECT
-
     ROUND(latitude, 2) AS latitude,
-
     ROUND(AVG(mean_value), 4)
         AS mean_biogeochemical_value
 FROM latitude_surface_statistics
