@@ -4,7 +4,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-# NOTE: this must match the file created by 09_criar_banco.py
+# NOTE: this must match the file created by create_database.py
 DATABASE_FILE = (
     PROJECT_ROOT
     / "data"
@@ -62,7 +62,7 @@ queries = {
 
     # Depth data: global_depth_profiles is the only depth table
     # actually loaded into the database (depth_statistics.csv from
-    # 06_criar_agregacoes.py duplicates this data and was never
+    # create_aggregations.py duplicates this data and was never
     # loaded as a table, so it is not exported here)
     "depth_profiles.csv": """
         SELECT *
