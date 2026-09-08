@@ -31,7 +31,6 @@ SELECT
     SUM(
         CASE WHEN si IS NULL THEN 1 ELSE 0 END
     ) AS missing_si
-
 FROM surface_biogeochemistry;
 
 -- Query 2: pH values outside the valid chemical range (0-14)
