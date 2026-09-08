@@ -30,7 +30,6 @@ print(DATABASE_FILE)
 print()
 print("CHECKING PROCESSED FILES")
 
-
 required_files = [
     "surface_biogeochemistry_2025_09.csv",
     "global_surface_statistics.csv",
@@ -92,7 +91,6 @@ if global_file.exists():
     )
     print("Table created: global_surface_statistics")
 
-
 latitude_file = PROCESSED_DIR / "latitude_surface_statistics.csv"
 
 if latitude_file.exists():
@@ -105,7 +103,6 @@ if latitude_file.exists():
     )
     print("Table created: latitude_surface_statistics")
 
-
 longitude_file = PROCESSED_DIR / "longitude_surface_statistics.csv"
 
 if longitude_file.exists():
@@ -117,7 +114,6 @@ if longitude_file.exists():
         index=False
     )
     print("Table created: longitude_surface_statistics")
-
 
 depth_file = PROCESSED_DIR / "global_depth_profiles.csv"
 
