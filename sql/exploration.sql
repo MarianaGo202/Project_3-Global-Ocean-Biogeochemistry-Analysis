@@ -10,16 +10,12 @@ SELECT
     'surface_biogeochemistry' AS table_name,
     COUNT(*) AS row_count
 FROM surface_biogeochemistry
-
 UNION ALL
-
 SELECT
     'global_surface_statistics',
     COUNT(*)
 FROM global_surface_statistics
-
 UNION ALL
-
 SELECT
     'global_depth_profiles',
     COUNT(*)
