@@ -1,6 +1,6 @@
 # <h1 align="center">**Global Ocean Biogeochemistry Analysis**</h1>
 
-<p align="justify"Third project in my oceanographic data series. This time I went from a single-variable time series to a full 3D ocean model output: ten biogeochemical variables, 75 depth levels, global coverage. The goal was to build the whole pipeline myself — reading raw NetCDF files, masking out land, aggregating the data down to something usable, loading it into SQLite, and connecting it to Power BI.</p>
+<p align="justify">Third project in my oceanographic data series. This time I went from a single-variable time series to a full 3D ocean model output: ten biogeochemical variables, 75 depth levels, global coverage. The goal was to build the whole pipeline myself — reading raw NetCDF files, masking out land, aggregating the data down to something usable, loading it into SQLite, and connecting it to Power BI.</p>
 
 **Development environment:** Visual Studio Code (VS Code)
 
@@ -91,23 +91,34 @@ This is a numerical model product, not direct satellite or buoy measurements. It
 
 <table align="center">
   <tr><th align="center">Step</th><th align="center">Script</th><th align="center">Purpose</th></tr>
-  <tr><td align="center">01</td><td><code>01_inspecionar_netcdf.py</code></td><td align="justify">Look at the monthly NetCDF file — dimensions, variables, missing values</td></tr>
-  <tr><td align="center">02</td><td><code>02_inspecionar_coordinates.py</code></td><td align="justify">Look at the grid coordinates file</td></tr>
-  <tr><td align="center">03</td><td><code>03_inspecionar_mask.py</code></td><td align="justify">Look at the ocean/land mask</td></tr>
-  <tr><td align="center">04</td><td><code>04_analisar_grade.py</code></td><td align="justify">Cross-check coordinates against the mask, check ocean vs. land coverage</td></tr>
-  <tr><td align="center">05</td><td><code>05_preparar_dados.py</code></td><td align="justify">Extract the surface level, apply the mask, export the CSV</td></tr>
-  <tr><td align="center">06</td><td><code>06_criar_agregacoes.py</code></td><td align="justify">Global, latitude and longitude aggregations</td></tr>
-  <tr><td align="center">07</td><td><code>07_preparar_profundidade.py</code></td><td align="justify">Global vertical profile per variable</td></tr>
-  <tr><td align="center">08</td><td><code>08_criar_dimensoes.py</code></td><td align="justify">Build the dimension tables</td></tr>
-  <tr><td align="center">09</td><td><code>09_criar_banco.py</code></td><td align="justify">Load everything into SQLite and index it</td></tr>
-  <tr><td align="center">10</td><td><code>10_validar_banco.py</code></td><td align="justify">Validate the finished database</td></tr>
-  <tr><td align="center">12</td><td><code>12_gerar_figuras.py</code></td><td align="justify">Generate the PNG figures below from the database</td></tr>
+  <tr><td align="center">01</td><td><code>inspect_netcdf.py</code></td><td align="justify">Look at the monthly NetCDF file — dimensions, variables, missing values</td></tr>
+  <tr><td align="center">02</td><td><code>inspect_coordinates.py</code></td><td align="justify">Look at the grid coordinates file</td></tr>
+  <tr><td align="center">03</td><td><code>inspect_mask.py</code></td><td align="justify">Look at the ocean/land mask</td></tr>
+  <tr><td align="center">04</td><td><code>analyze_grid.py</code></td><td align="justify">Cross-check coordinates against the mask, check ocean vs. land coverage</td></tr>
+  <tr><td align="center">05</td><td><code>prepare_data.py</code></td><td align="justify">Extract the surface level, apply the mask, export the CSV</td></tr>
+  <tr><td align="center">06</td><td><code>create_aggregations.py</code></td><td align="justify">Global, latitude and longitude aggregations</td></tr>
+  <tr><td align="center">07</td><td><code>prepare_depth_data.py</code></td><td align="justify">Global vertical profile per variable</td></tr>
+  <tr><td align="center">08</td><td><code>create_dimensions.py</code></td><td align="justify">Build the dimension tables</td></tr>
+  <tr><td align="center">09</td><td><code>create_database.py</code></td><td align="justify">Load everything into SQLite and index it</td></tr>
+  <tr><td align="center">10</td><td><code>validate_database.py</code></td><td align="justify">Validate the finished database</td></tr>
+  <tr><td align="center">12</td><td><code>generate_figures.py</code></td><td align="justify">Generate the PNG figures below from the database</td></tr>
 </table>
 
 **Masking**
 <p align="justify">
 Before exporting anything I applied the model's own ocean/land mask (<code>mask == 1</code>), so land cells and empty cells just don't show up in the tables — no nulls to clean up later, which is why the completeness check below is 100% across the board.
 </p>
+
+```python
+# Apply the ocean mask to the surface level before exporting anything
+ocean_mask = mask_ds["mask"].isel(depth=0)
+
+surface = ds[variables].isel(depth=0)
+surface = surface.where(ocean_mask == 1)
+
+df_surface = surface.to_dataframe().reset_index()
+df_surface = df_surface.dropna(subset=variables, how="all")
+```
 
 **Surface vs. depth**
 <p align="justify">
@@ -129,15 +140,56 @@ I grouped the 75 raw depth levels into six bands so it's easier to filter by dep
   <tr><td>Abyssal</td><td>&gt; 4,000 m</td></tr>
 </table>
 
+```python
+def classify_depth(depth):
+    if depth <= 10:
+        return "Surface"
+    elif depth <= 50:
+        return "Shallow"
+    elif depth <= 200:
+        return "Upper Ocean"
+    elif depth <= 1000:
+        return "Intermediate"
+    elif depth <= 4000:
+        return "Deep Ocean"
+    return "Abyssal"
+
+df_depth["depth_category"] = df_depth["depth_m"].apply(classify_depth)
+```
+
 **Database (star schema)**
 <p align="justify">
 <code>ocean_biogeochemistry.db</code> separates fact tables (the actual observations and stats) from dimension tables (<code>dim_variable</code>, <code>dim_depth</code>, <code>dim_date</code>), so Power BI can relate everything properly instead of repeating text columns in every table.
 </p>
 
+```python
+df_surface.to_sql("surface_biogeochemistry", connection, if_exists="replace", index=False)
+df_global.to_sql("global_surface_statistics", connection, if_exists="replace", index=False)
+df_depth.to_sql("global_depth_profiles", connection, if_exists="replace", index=False)
+
+cursor.execute("""
+    CREATE INDEX IF NOT EXISTS idx_surface_latitude
+    ON surface_biogeochemistry(latitude)
+""")
+```
+
 **Quality control**
 <p align="justify">
 Checked for missing values, checked pH stays in [0, 14], checked no negative concentrations, checked coordinates are within range, and ran <code>PRAGMA integrity_check</code> on the final database.
 </p>
+
+```sql
+-- pH values outside the valid chemical range (0-14)
+SELECT COUNT(*) AS invalid_ph
+FROM surface_biogeochemistry
+WHERE ph IS NOT NULL
+AND (ph < 0 OR ph > 14);
+
+-- Negative concentrations that should not occur
+SELECT COUNT(*) AS negative_oxygen_values
+FROM surface_biogeochemistry
+WHERE o2 < 0;
+```
 
 ## Database Structure
 <table align="center">
@@ -182,6 +234,16 @@ Checked for missing values, checked pH stays in [0, 14], checked no negative con
 <p align="justify">
 Coefficient of variation per variable — pH and spco2 barely move across the whole ocean surface, while nppv, fe, si and no3 swing a lot, which tracks with how patchy nutrient and productivity processes actually are in the real ocean.
 </p>
+
+```python
+df_var = pd.read_sql_query("""
+    SELECT variable, std / NULLIF(mean, 0) AS coefficient_variation
+    FROM global_surface_statistics
+    ORDER BY coefficient_variation DESC;
+""", connection)
+
+ax.barh(df_var["variable"], df_var["coefficient_variation"], color="#9467bd")
+```
 
 <p align="center">
   <img src="visualisations/analysis/03_variability_ranking.png" alt="Variability ranking of biogeochemical variables" width="700">
@@ -277,6 +339,16 @@ The Power BI model follows the same general structure as the SQLite database. Th
 The dashboard therefore represents the final stage of the project pipeline: raw NetCDF model output -> Python processing and aggregation -> SQLite database -> Power BI visualisation.
 </p>
 
+```sql
+-- Example query used to feed the Page 1 KPI cards
+SELECT
+    AVG(chl)  AS average_chlorophyll,
+    AVG(nppv) AS average_primary_production,
+    AVG(o2)   AS average_oxygen,
+    AVG(ph)   AS average_ph
+FROM surface_biogeochemistry;
+```
+
 <p align="justify">Power BI report file: <code>global_ocean_biogeochemistry_dashboard.pbix</code></p>
 
 ## Output Files
@@ -357,14 +429,3 @@ That said, this project has real limits worth being upfront about. It's model ou
 ### Mariana Gomes de Andrade Silva
 
 <p align="center"><strong>Interests: Oceanography - Scientific Programming - Data Analysis - Environmental Data</strong></p>
-
-
-
-
-
-
-
-
-
-
-
