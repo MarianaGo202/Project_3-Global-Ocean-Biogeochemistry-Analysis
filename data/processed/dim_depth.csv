@@ -1,0 +1,76 @@
+depth_id,depth_m,depth_category
+1,0.50576,Surface
+2,1.5558553,Surface
+3,2.6676817,Surface
+4,3.8562799,Surface
+5,5.1403613,Surface
+6,6.5430336,Surface
+7,8.092519,Surface
+8,9.82275,Surface
+9,11.77368,Shallow
+10,13.991038,Shallow
+11,16.525322,Shallow
+12,19.429802,Shallow
+13,22.757616,Shallow
+14,26.5583,Shallow
+15,30.874561,Shallow
+16,35.740204,Shallow
+17,41.180023,Shallow
+18,47.211895,Shallow
+19,53.850636,Upper Ocean
+20,61.11284,Upper Ocean
+21,69.02168,Upper Ocean
+22,77.61116,Upper Ocean
+23,86.92943,Upper Ocean
+24,97.04131,Upper Ocean
+25,108.03028,Upper Ocean
+26,120.0,Upper Ocean
+27,133.07582,Upper Ocean
+28,147.40625,Upper Ocean
+29,163.16446,Upper Ocean
+30,180.54993,Upper Ocean
+31,199.78996,Upper Ocean
+32,221.14117,Intermediate
+33,244.89062,Intermediate
+34,271.35638,Intermediate
+35,300.8875,Intermediate
+36,333.86282,Intermediate
+37,370.68848,Intermediate
+38,411.79385,Intermediate
+39,457.6256,Intermediate
+40,508.6399,Intermediate
+41,565.2923,Intermediate
+42,628.026,Intermediate
+43,697.25867,Intermediate
+44,773.3683,Intermediate
+45,856.67896,Intermediate
+46,947.4479,Intermediate
+47,1045.8542,Deep Ocean
+48,1151.9912,Deep Ocean
+49,1265.8615,Deep Ocean
+50,1387.377,Deep Ocean
+51,1516.3636,Deep Ocean
+52,1652.5685,Deep Ocean
+53,1795.6708,Deep Ocean
+54,1945.2955,Deep Ocean
+55,2101.0266,Deep Ocean
+56,2262.4216,Deep Ocean
+57,2429.0251,Deep Ocean
+58,2600.3804,Deep Ocean
+59,2776.0393,Deep Ocean
+60,2955.5703,Deep Ocean
+61,3138.565,Deep Ocean
+62,3324.6409,Deep Ocean
+63,3513.4456,Deep Ocean
+64,3704.6567,Deep Ocean
+65,3897.982,Deep Ocean
+66,4093.1587,Abyssal
+67,4289.9526,Abyssal
+68,4488.155,Abyssal
+69,4687.581,Abyssal
+70,4888.07,Abyssal
+71,5089.4785,Abyssal
+72,5291.683,Abyssal
+73,5494.575,Abyssal
+74,5698.0605,Abyssal
+75,5902.0576,Abyssal

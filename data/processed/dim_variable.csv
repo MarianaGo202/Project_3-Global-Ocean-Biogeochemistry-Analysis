@@ -1,0 +1,11 @@
+variable_code,variable_name,unit
+spco2,Surface CO2,Pa
+chl,Total Chlorophyll,mg m-3
+fe,Dissolved Iron,mmol m-3
+no3,Nitrate,mmol m-3
+nppv,Primary Production,mg m-3 day-1
+o2,Dissolved Oxygen,mmol m-3
+ph,pH,1
+phyc,Total Phytoplankton,mmol m-3
+po4,Phosphate,mmol m-3
+si,Dissolved Silicate,mmol m-3
