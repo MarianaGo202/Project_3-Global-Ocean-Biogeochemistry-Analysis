@@ -3,12 +3,6 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-# NOTE: the depth_statistics.csv produced here duplicates the
-# depth profile already produced by 07_preparar_profundidade.py
-# (global_depth_profiles.csv), which is the one actually loaded
-# into the database by 09_criar_banco.py. depth_statistics.csv
-# is kept here for reference but is not used downstream.
-
 print("PROJECT 3 — SCIENTIFIC AGGREGATIONS")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -152,7 +146,7 @@ print(f"Saved: {longitude_file}")
 
 
 # 4) Average value per depth level (full water column, not just
-#    surface) — kept for reference, see note at the top of the file.
+# surface) — kept for reference, see note at the top of the file.
 print("\nCalculating depth statistics...")
 
 records = []
