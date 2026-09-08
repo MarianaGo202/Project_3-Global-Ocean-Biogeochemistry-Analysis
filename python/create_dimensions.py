@@ -59,7 +59,6 @@ df_depth = pd.DataFrame({
     "depth_m": depths
 })
 
-
 def classify_depth(depth):
     if depth <= 10:
         return "Surface"
@@ -72,7 +71,6 @@ def classify_depth(depth):
     elif depth <= 4000:
         return "Deep Ocean"
     return "Abyssal"
-
 
 df_depth["depth_category"] = df_depth["depth_m"].apply(classify_depth)
 
