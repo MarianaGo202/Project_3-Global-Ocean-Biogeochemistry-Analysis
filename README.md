@@ -416,9 +416,9 @@ That said, this project has real limits worth being upfront about. It's model ou
 <p align="center"><i>Python - Xarray - NetCDF Processing - Data Masking - SQL - Database Design - Star Schema - Data Quality Control - Statistical Analysis - Data Visualisation - Power BI - Scientific Data Analysis - Oceanographic Data</i></p>
 
 ## Project Documentation
-- [`methodology.md`](methodology.md)
-- [`data_dictionary.md`](data_dictionary.md)
-- [`data_quality.md`](data_quality.md)
+- [`methodology.md`](documents/methodology.md)
+- [`data_dictionary.md`](documents/data_dictionary.md)
+- [`data_quality.md`](documents/data_quality.md)
 
 ## Bibliography
 - [Copernicus Marine Service — Global Ocean Biogeochemistry Hindcast, product description](https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_BGC_001_029/description)
