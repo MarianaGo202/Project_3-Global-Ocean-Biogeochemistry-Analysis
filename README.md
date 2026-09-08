@@ -389,7 +389,7 @@ This dataset is essentially a snapshot of the ocean's chemistry and biology at a
 </p>
 
 <p align="justify">
-That said, this project has real limits worth being upfront about. It's model output, not raw measurements — there's no data assimilation in this product, so it should be read as a physically consistent simulation rather than an observational record. Only one month (September 2025) was used, so there's no seasonality here, and the depth analysis is a single global average rather than a per-region profile — it can't show how the OMZ differs between, say, the Pacific and the Atlantic. That's a reasonable next step, just outside the scope of this version. More limitations are in <a href="methodology.md"><code>methodology.md</code></a>.
+That said, this project has real limits worth being upfront about. It's model output, not raw measurements — there's no data assimilation in this product, so it should be read as a physically consistent simulation rather than an observational record. Only one month (September 2025) was used, so there's no seasonality here, and the depth analysis is a single global average rather than a per-region profile — it can't show how the OMZ differs between, say, the Pacific and the Atlantic. That's a reasonable next step, just outside the scope of this version.
 </p>
 
 ## Tools
@@ -414,11 +414,6 @@ That said, this project has real limits worth being upfront about. It's model ou
 
 ## Skills Demonstrated
 <p align="center"><i>Python - Xarray - NetCDF Processing - Data Masking - SQL - Database Design - Star Schema - Data Quality Control - Statistical Analysis - Data Visualisation - Power BI - Scientific Data Analysis - Oceanographic Data</i></p>
-
-## Project Documentation
-- [`methodology.md`](documents/methodology.md)
-- [`data_dictionary.md`](documents/data_dictionary.md)
-- [`data_quality.md`](documents/data_quality.md)
 
 ## Bibliography
 - [Copernicus Marine Service — Global Ocean Biogeochemistry Hindcast, product description](https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_BGC_001_029/description)
