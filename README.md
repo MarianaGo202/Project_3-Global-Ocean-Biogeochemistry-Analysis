@@ -204,10 +204,8 @@ WHERE o2 < 0;
   <tr><td align="center"><code>dim_date</code></td><td align="center">1</td><td align="justify">The one reference month</td></tr>
 </table>
 
-<p align="justify">Column-by-column definitions are in <a href="data_dictionary.md"><code>data_dictionary.md</code></a>.</p>
-
 ## Data Quality
-<p align="justify">Zero missing values across all 10 variables — expected, since the mask already removed land/no-data cells before export. All validity checks passed and the database integrity check came back <code>ok</code>. Full report in <a href="data_quality.md"><code>data_quality.md</code></a>.</p>
+<p align="justify">Zero missing values across all 10 variables — expected, since the mask already removed land/no-data cells before export. All validity checks passed and the database integrity check came back <code>ok</code>.</p>
 
 <p align="center"><strong>Value ranges (surface, September 2025)</strong></p>
 
